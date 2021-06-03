@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Operation Deconfinement</string>
+    <string name="register">REGISTER</string>
+    <string name="login_email_hint">Email</string>
+    <string name="login_password_hint">Password</string>
+    <string name="signup_login_hint">Already have an account? Sign In</string>
+    <string name="login_signup_hint">Don\'t have an account? Sign Up</string>
+    <string name="login_background">login background</string>
+    <string name="close">close</string>
+    <string name="login_password_confirmation_hint">Password Confirmation</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="numero_assurance_maladie">Numero Assurance Maladie</string>
+</resources>
