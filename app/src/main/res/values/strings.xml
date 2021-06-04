@@ -10,4 +10,14 @@
     <string name="login_password_confirmation_hint">Password Confirmation</string>
     <string name="phone_number">Phone Number</string>
     <string name="numero_assurance_maladie">Numero Assurance Maladie</string>
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="complete_your_information">Complete your information</string>
+    <string name="street">Street</string>
+    <string name="zip_code">Zip Code</string>
+    <string name="city">City</string>
+    <string name="apartment">Apartment (optional)</string>
+    <string name="userEmail">userEmail</string>
+    <string name="userPassword">userPassword</string>
+    <string name="complete">Complete</string>
 </resources>

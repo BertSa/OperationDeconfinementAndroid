@@ -9,90 +9,86 @@
     android:orientation="vertical"
     tools:context="ca.bertsa.cal.operationdeconfinementandroid.LoginRegisterActivity">
 
-<!--    <ScrollView-->
-<!--        style="@style/parent"-->
-<!--        android:visibility="gone">-->
+    <ScrollView style="@style/parent">
 
-<!--        <RelativeLayout-->
-<!--            style="@style/parent"-->
-<!--            android:visibility="gone">-->
+        <RelativeLayout style="@style/parent">
 
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_alignParentTop="true"-->
-<!--                android:baselineAligned="false"-->
-<!--                android:weightSum="12">-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:baselineAligned="false"
+                android:weightSum="12">
 
-<!--                <LinearLayout-->
-<!--                    style="@style/parent"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_weight="3"-->
-<!--                    android:background="@drawable/login_shape_bk"-->
-<!--                    android:orientation="vertical"-->
-<!--                    tools:ignore="InefficientWeight">-->
+                <LinearLayout
+                    style="@style/parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="3"
+                    android:background="@drawable/login_shape_bk"
+                    android:orientation="vertical"
+                    tools:ignore="InefficientWeight">
 
-<!--                    <ImageView-->
-<!--                        style="@style/parent"-->
-<!--                        android:background="@drawable/ic_login_bk"-->
-<!--                        android:contentDescription="@string/login_background"-->
-<!--                        android:rotation="0" />-->
+                    <ImageView
+                        style="@style/parent"
+                        android:background="@drawable/ic_login_bk"
+                        android:contentDescription="@string/login_background"
+                        android:rotation="0" />
 
-<!--                </LinearLayout>-->
+                </LinearLayout>
 
-<!--            </LinearLayout>-->
+            </LinearLayout>
 
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_alignParentTop="true"-->
-<!--                android:layout_marginLeft="30dp"-->
-<!--                android:layout_marginTop="40dp"-->
-<!--                android:layout_marginRight="30dp"-->
-<!--                android:orientation="vertical">-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="30dp"
+                android:orientation="vertical">
 
 
-<!--                <TextView-->
-<!--                    style="@style/headerText"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:layout_marginTop="40dp"-->
-<!--                    android:text="@string/app_name"-->
-<!--                    android:textAllCaps="true" />-->
+                <TextView
+                    style="@style/headerText"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/app_name"
+                    android:textAllCaps="true" />
 
-<!--                <include-->
-<!--                    android:id="@+id/register"-->
-<!--                    layout="@layout/layout_register" />-->
+                <include
+                    android:id="@+id/register"
+                    layout="@layout/layout_register" />
 
-<!--                <include-->
-<!--                    android:id="@+id/login"-->
-<!--                    layout="@layout/layout_login"-->
-<!--                    android:visibility="gone" />-->
+                <include
+                    android:id="@+id/login"
+                    layout="@layout/layout_login"
+                    android:visibility="gone" />
 
-<!--            </LinearLayout>-->
+            </LinearLayout>
 
-<!--            <ImageView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_alignParentStart="true"-->
-<!--                android:layout_alignParentTop="true"-->
-<!--                android:layout_marginStart="10dp"-->
-<!--                android:layout_marginTop="30dp"-->
-<!--                android:contentDescription="@string/close"-->
-<!--                android:src="@android:drawable/ic_menu_close_clear_cancel" />-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="30dp"
+                android:contentDescription="@string/close"
+                android:src="@android:drawable/ic_menu_close_clear_cancel" />
 
 
-<!--        </RelativeLayout>-->
+        </RelativeLayout>
 
-<!--    </ScrollView>-->
+    </ScrollView>
 
-    <WebView
-        android:id="@+id/webview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <WebView-->
+<!--        android:id="@+id/webview"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:visibility="visible"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
 </RelativeLayout>

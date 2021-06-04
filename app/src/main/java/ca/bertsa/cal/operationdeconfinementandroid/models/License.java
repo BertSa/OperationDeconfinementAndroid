@@ -9,8 +9,10 @@ import java.util.Date;
 import ca.bertsa.cal.operationdeconfinementandroid.enums.CategoryLicence;
 import ca.bertsa.cal.operationdeconfinementandroid.enums.TypeLicense;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class License implements Serializable {
 
     private Long id;

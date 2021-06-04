@@ -7,15 +7,12 @@ import java.time.LocalDate;
 import java.util.Date;
 
 import ca.bertsa.cal.operationdeconfinementandroid.enums.Sex;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Data
 @NoArgsConstructor
-public class Citizen implements Serializable {
+public class CitizenData implements Serializable {
     private Long id;
     private String noAssuranceMaladie;
     private boolean active;
@@ -24,17 +21,17 @@ public class Citizen implements Serializable {
     private String lastName;
     private String firstName;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "YYYY-MM-dd")
-    private Date birth;
+    private LocalDate birth;
     private Sex sex;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "YYYY-MM-dd")
-    private Date dateJoined;
+    private LocalDate dateJoined;
     private String phone;
     private Address address;
     private License license;
     private boolean profileCompleted;
-    private Citizen tutor;
+    private CitizenData tutor;
 
-    public Citizen(String noAssuranceMaladie, String email, String password, String phone) {
+    public CitizenData(String noAssuranceMaladie, String email, String password, String phone) {
         this.noAssuranceMaladie = noAssuranceMaladie;
         this.email = email;
         this.password = password;
