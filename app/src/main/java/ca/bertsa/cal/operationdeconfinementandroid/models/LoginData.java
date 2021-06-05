@@ -2,6 +2,7 @@ package ca.bertsa.cal.operationdeconfinementandroid.models;
 
 import java.io.Serializable;
 
+@SuppressWarnings("unused")
 public class LoginData implements Serializable {
     private final String email;
     private final String password;

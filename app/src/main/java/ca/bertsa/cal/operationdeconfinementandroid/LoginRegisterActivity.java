@@ -2,8 +2,10 @@ package ca.bertsa.cal.operationdeconfinementandroid;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +17,11 @@ import org.json.JSONException;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import ca.bertsa.cal.operationdeconfinementandroid.designP.ServerCallback;
+import ca.bertsa.cal.operationdeconfinementandroid.enums.TypeLicense;
 import ca.bertsa.cal.operationdeconfinementandroid.models.Citizen;
 
 import static android.view.View.GONE;
@@ -28,9 +34,9 @@ import static java.util.Objects.requireNonNull;
 
 public class LoginRegisterActivity extends AppCompatActivity {
 
+    private static final String TAG = "LoginRegisterActivity";
     private View login;
     private View register;
-    private Button btnRegister;
     private AppCompatEditText registerEmail;
     private AppCompatEditText registerNassm;
     private AppCompatEditText registerPhone;
@@ -38,6 +44,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
     private AppCompatEditText registerPasswordConfirmation;
     private AppCompatEditText loginEmail;
     private AppCompatEditText loginPassword;
+    private Spinner spinner;
 
 
     @Override
@@ -47,33 +54,21 @@ public class LoginRegisterActivity extends AppCompatActivity {
 //        getInstance().checkConnection(this, result -> {
 //
 //        });
-
-        loginEmail = this.findViewById(id.loginEmail);
-        loginPassword = this.findViewById(id.loginPassword);
-        findViewById(id.btn_login).setOnClickListener(v -> {
-            try {
-                String email = requireNonNull(loginEmail.getText()).toString();
-                String password = requireNonNull(loginPassword.getText()).toString();
-                if (email.equals("") || password.equals(""))
-                    return;
-                getInstance().login(this, email, password, citizen -> {
-                    if (isTooYoung(citizen)) return;
-                    goToActivity();
-                });
-            } catch (JSONException | JsonProcessingException e) {
-                e.printStackTrace();
-            }
-        });
-
-
-        this.registerEmail = this.findViewById(id.registerEmail);
-        this.registerNassm = this.findViewById(id.registerNassm);
-        this.registerPhone = this.findViewById(id.registerPhone);
-        this.registerPassword = this.findViewById(id.registerPassword);
-        this.registerPasswordConfirmation = this.findViewById(id.registerPasswordConfirmation);
+        registerEmail = this.findViewById(id.registerEmail);
+        registerNassm = this.findViewById(id.registerNassm);
+        registerPhone = this.findViewById(id.registerPhone);
+        registerPassword = this.findViewById(id.registerPassword);
+        registerPasswordConfirmation = this.findViewById(id.registerPasswordConfirmation);
         login = this.findViewById(id.login);
         register = findViewById(id.register);
+        loginEmail = this.findViewById(id.loginEmail);
+        loginPassword = this.findViewById(id.loginPassword);
 
+        spinner = findViewById(id.registerTypeLicense);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.typeLicense, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
         findViewById(id.link_signIn).setOnClickListener(v -> {
             register.setVisibility(GONE);
             login.setVisibility(VISIBLE);
@@ -82,50 +77,75 @@ public class LoginRegisterActivity extends AppCompatActivity {
             login.setVisibility(GONE);
             register.setVisibility(VISIBLE);
         });
-        this.btnRegister = findViewById(id.btn_register);
-        this.btnRegister.setOnClickListener(btn -> {
-            btn.setClickable(false);
-            register();
+
+        findViewById(id.btn_login).setOnClickListener(btn -> {
+            btn.setEnabled(false);
+            login(btn);
         });
-/*
-        String newUA = "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/20100101 Firefox/4.0";
-        String MyUA = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 " +
-                "(KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36";
-        WebView myWebView = (WebView) findViewById(R.id.webview);
-        myWebView.loadUrl("http://10.0.2.2:4200");
-        WebSettings webSettings = myWebView.getSettings();
-        myWebView.getSettings().setUserAgentString(MyUA);
-        webSettings.setJavaScriptEnabled(true);
-        myWebView.getSettings().setLoadWithOverviewMode(true);
-        myWebView.getSettings().setUseWideViewPort(true);
-        myWebView.getSettings().setSupportZoom(true);
-        myWebView.getSettings().setBuiltInZoomControls(true);
-        myWebView.getSettings().setDisplayZoomControls(false);
-        myWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-        myWebView.setScrollbarFadingEnabled(false);
-*/
-
-
+        findViewById(id.btn_register).setOnClickListener(btn -> {
+            btn.setEnabled(false);
+            register(btn);
+        });
     }
 
-    private void register() {
-/*
+    private void login(View btn) {
+        try {
+            String email = requireNonNull(loginEmail.getText()).toString();
+            String password = requireNonNull(loginPassword.getText()).toString();
+            if (email.equals("") || password.equals(""))
+                return;
+            getInstance().login(this, email, password, new ServerCallback() {
+                @Override
+                public void onSuccess(Citizen citizen) {
+                    btn.setEnabled(true);
+                    if (isTooYoung(citizen)) return;
+                    loginEmail.setText("");
+                    loginPassword.setText("");
+                    goToActivity();
+                }
+
+                @Override
+                public void onFailed() {
+                    btn.setEnabled(true);
+                }
+            });
+        } catch (JSONException | JsonProcessingException e) {
+            Log.e(TAG, e.getMessage());
+        }
+    }
+
+    private void register(View btn) {
         String nassm = requireNonNull(this.registerNassm.getText()).toString();
         String email = requireNonNull(this.registerEmail.getText()).toString();
         String phone = requireNonNull(this.registerPhone.getText()).toString();
         String password = requireNonNull(this.registerPassword.getText()).toString();
         String passwordConfirmation = requireNonNull(this.registerPasswordConfirmation.getText()).toString();
-        new Citizen(nassm, email, password, phone)
-*/
+        String selected = spinner.getSelectedItem().toString().toUpperCase();
+
+        if (!password.equals(passwordConfirmation) || password.equals("")) {
+            Toast.makeText(this, getResources().getText(R.string.passwordsMustMatch), Toast.LENGTH_LONG).show();
+            btn.setEnabled(true);
+            return;
+        }
+        Citizen user = new Citizen(nassm, email, password, phone);
         try {
-            getInstance().register(this, NEGATIVETEST, new Citizen("eeee11112222", "aeryxajin@gmail.com", "1111", "5554443333"),
-                    citizen -> {
-                        if (isTooYoung(citizen)) return;
-                        goToActivity();
-                    });
+            getInstance().register(this, TypeLicense.valueOf(selected), user, new ServerCallback() {
+                @Override
+                public void onSuccess(Citizen citizen) {
+                    btn.setEnabled(true);
+                    if (isTooYoung(citizen)) return;
+
+                    goToActivity();
+                }
+
+                @Override
+                public void onFailed() {
+                    btn.setEnabled(true);
+                }
+            });
 
         } catch (JsonProcessingException | JSONException e) {
-            e.printStackTrace();
+            Log.e(TAG, e.getMessage());
         }
     }
 
@@ -136,8 +156,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
 
         if (birth.isAfter(LocalDate.now().minusYears(16))) {
             getInstance().disconnect(this);
-            Toast.makeText(getApplicationContext(), "Children cant connect here", Toast.LENGTH_LONG).show();
-            btnRegister.setClickable(true);
+            Toast.makeText(getApplicationContext(), getResources().getText(R.string.ageRestriction), Toast.LENGTH_LONG).show();
             return true;
         }
         return false;
@@ -148,4 +167,15 @@ public class LoginRegisterActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerNassm.setText("");
+        registerEmail.setText("");
+        registerPhone.setText("");
+        registerPassword.setText("");
+        registerPasswordConfirmation.setText("");
+        loginEmail.setText("");
+        loginPassword.setText("");
+    }
 }

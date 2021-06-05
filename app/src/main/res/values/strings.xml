@@ -21,4 +21,7 @@
     <string name="userPassword">userPassword</string>
     <string name="complete">Complete</string>
     <string name="refresh">Refresh</string>
+    <string name="error_network_timeout">Network timeout</string>
+    <string name="passwordsMustMatch">Passwords must match!</string>
+    <string name="ageRestriction">You must be 16+ to use this app!</string>
 </resources>

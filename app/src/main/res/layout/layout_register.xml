@@ -84,6 +84,19 @@
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/parent"
+            android:layout_marginTop="@dimen/signup_text_margin_top">
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/registerTypeLicense"
+                style="@style/modifiedEditText"
+                android:hint="@string/login_password_confirmation_hint"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <Button
             android:id="@+id/btn_register"
             style="@style/loginButton"

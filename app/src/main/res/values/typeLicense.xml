@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="typeLicense">
+        <item>NegativeTest</item>
+        <item>Vaccine</item>
+    </string-array>
+</resources>

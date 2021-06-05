@@ -1,14 +1,15 @@
 package ca.bertsa.cal.operationdeconfinementandroid.models;
 
-import lombok.Data;
-
 import java.util.List;
 
-@Data
+@SuppressWarnings("unused")
 public class ErrorResponse {
 
     private String message;
     private List<String> details;
+
+    public ErrorResponse() {
+    }
 
     public ErrorResponse(String message, List<String> details) {
         super();
@@ -20,5 +21,21 @@ public class ErrorResponse {
     public String toString() {
         if (details == null) return message;
         return details.get(0);
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public List<String> getDetails() {
+        return details;
+    }
+
+    public void setDetails(List<String> details) {
+        this.details = details;
     }
 }
