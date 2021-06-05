@@ -1,8 +1,6 @@
 package ca.bertsa.cal.operationdeconfinementandroid.services;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -29,8 +27,6 @@ import ca.bertsa.cal.operationdeconfinementandroid.models.Citizen;
 import ca.bertsa.cal.operationdeconfinementandroid.models.ErrorResponse;
 import ca.bertsa.cal.operationdeconfinementandroid.models.LoginData;
 
-import static ca.bertsa.cal.operationdeconfinementandroid.R.string;
-
 public class SystemService {
     private static final String TAG = "SystemService";
     private static SystemService instance = null;
@@ -47,7 +43,7 @@ public class SystemService {
 
     public void login(Activity activity, String email, String password, final ServerCallback serverCallback) throws JSONException, JsonProcessingException {
         LoginData loginData = new LoginData(email, password);
-        postt(activity, "/login", loginData, serverCallback);
+        post(activity, "/login", loginData, serverCallback);
     }
 
     public static SystemService getInstance() {
@@ -57,10 +53,10 @@ public class SystemService {
     }
 
     public void register(Activity activity, TypeLicense type, Citizen citizen, final ServerCallback serverCallback) throws JsonProcessingException, JSONException {
-        postt(activity, "/register/" + type, citizen, serverCallback);
+        post(activity, "/register/" + type, citizen, serverCallback);
     }
 
-    private synchronized void postt(Activity activity, String endPoint, Object obj, final ServerCallback serverCallback) throws JSONException, JsonProcessingException {
+    private synchronized void post(Activity activity, String endPoint, Object obj, final ServerCallback serverCallback) throws JSONException, JsonProcessingException {
         RequestQueue requestQueue = Volley.newRequestQueue(activity);
         String url = "http://10.0.2.2:9333/api/user" + endPoint;
 
@@ -71,7 +67,6 @@ public class SystemService {
                     } catch (JsonProcessingException e) {
                         Log.e(TAG, e.getLocalizedMessage());
                     }
-                    saveLogin(activity);
                     serverCallback.onSuccess(user);
                 },
                 error -> {
@@ -97,21 +92,7 @@ public class SystemService {
         requestQueue.add(jsonObjectRequest);
     }
 
-
-    private void saveLogin(Activity activity) {
-        SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(activity.getString(string.userEmail), user.getEmail());
-        editor.putString(activity.getString(string.userPassword), user.getPassword());
-        editor.apply();
-    }
-
-    public void disconnect(Activity activity) {
-        SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.remove(activity.getString(string.userEmail));
-        editor.remove(activity.getString(string.userPassword));
-        editor.apply();
+    public void disconnect() {
         this.user = null;
     }
 
@@ -119,22 +100,10 @@ public class SystemService {
         return user.isProfileCompleted();
     }
 
-    public void checkConnection(Activity activity, final ServerCallback callback) {
-        SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
-        String email = sharedPref.getString(activity.getString(string.userEmail), "");
-        String password = sharedPref.getString(activity.getString(string.userPassword), "");
-        if (email.equals("") || password.equals(""))
-            return;
-        try {
-            login(activity, email, password, callback);
-        } catch (JSONException | JsonProcessingException e) {
-            Log.e(TAG, e.getMessage());
-        }
-    }
 
     public void complete(Activity activity, Address address, final ServerCallback callback) throws JSONException, JsonProcessingException {
         user.setAddress(address);
-        postt(activity, "/complete", user, callback);
+        post(activity, "/complete", user, callback);
     }
 
     public Citizen getUser() {

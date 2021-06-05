@@ -103,6 +103,6 @@ public class LoggedInActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        getInstance().disconnect(this);
+        getInstance().disconnect();
     }
 }

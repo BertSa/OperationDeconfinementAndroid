@@ -17,8 +17,6 @@ import org.json.JSONException;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import ca.bertsa.cal.operationdeconfinementandroid.designP.ServerCallback;
 import ca.bertsa.cal.operationdeconfinementandroid.enums.TypeLicense;
@@ -28,7 +26,6 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static ca.bertsa.cal.operationdeconfinementandroid.R.id;
 import static ca.bertsa.cal.operationdeconfinementandroid.R.layout;
-import static ca.bertsa.cal.operationdeconfinementandroid.enums.TypeLicense.NEGATIVETEST;
 import static ca.bertsa.cal.operationdeconfinementandroid.services.SystemService.getInstance;
 import static java.util.Objects.requireNonNull;
 
@@ -50,7 +47,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(layout.activity_login);
+        setContentView(layout.activity_login_register);
 //        getInstance().checkConnection(this, result -> {
 //
 //        });
@@ -155,7 +152,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
                 .toLocalDate();
 
         if (birth.isAfter(LocalDate.now().minusYears(16))) {
-            getInstance().disconnect(this);
+            getInstance().disconnect();
             Toast.makeText(getApplicationContext(), getResources().getText(R.string.ageRestriction), Toast.LENGTH_LONG).show();
             return true;
         }

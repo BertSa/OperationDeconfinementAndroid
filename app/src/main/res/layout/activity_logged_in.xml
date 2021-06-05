@@ -36,7 +36,6 @@
                         android:rotation="0" />
 
                 </LinearLayout>
-
             </LinearLayout>
 
             <LinearLayout
@@ -47,7 +46,6 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginRight="30dp"
                 android:orientation="vertical">
-
 
                 <TextView
                     style="@style/headerText"
@@ -66,30 +64,6 @@
                     android:visibility="gone" />
 
             </LinearLayout>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="30dp"
-                android:contentDescription="@string/close"
-                android:src="@android:drawable/ic_menu_close_clear_cancel" />
-
-
         </RelativeLayout>
-
     </ScrollView>
-
-    <!--    <WebView-->
-    <!--        android:id="@+id/webview"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:visibility="visible"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
-
 </RelativeLayout>
