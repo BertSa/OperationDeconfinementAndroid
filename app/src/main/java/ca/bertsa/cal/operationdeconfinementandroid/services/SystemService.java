@@ -18,9 +18,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import ca.bertsa.cal.operationdeconfinementandroid.ErrorResponse;
-import ca.bertsa.cal.operationdeconfinementandroid.LoginData;
-import ca.bertsa.cal.operationdeconfinementandroid.ServerCallback;
+import ca.bertsa.cal.operationdeconfinementandroid.models.LoginData;
+import ca.bertsa.cal.operationdeconfinementandroid.designP.ServerCallback;
 import ca.bertsa.cal.operationdeconfinementandroid.enums.TypeLicense;
 import ca.bertsa.cal.operationdeconfinementandroid.models.Address;
 import ca.bertsa.cal.operationdeconfinementandroid.models.Citizen;
@@ -56,7 +55,7 @@ public class SystemService {
         postt(activity, "/register/" + type, citizen, serverCallback);
     }
 
-    private void postt(Activity activity, String endPoint, Object obj, final ServerCallback serverCallback) throws JSONException, JsonProcessingException {
+    private synchronized void postt(Activity activity, String endPoint, Object obj, final ServerCallback serverCallback) throws JSONException, JsonProcessingException {
         RequestQueue requestQueue = Volley.newRequestQueue(activity);
         String url = "http://10.0.2.2:9333/api/user" + endPoint;
 
@@ -74,12 +73,9 @@ public class SystemService {
                     saveLogin(activity);
                     serverCallback.onSuccess(user);
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("error : ", error.getMessage() + "");
-                        Toast.makeText(activity, error.getMessage() + "", Toast.LENGTH_LONG).show();
-                    }
+                error -> {
+                    Log.e("error : ", error.getMessage() + "");
+                    Toast.makeText(activity, error.getMessage() + "", Toast.LENGTH_LONG).show();
                 });
         requestQueue.add(jsonObjectRequest);
     }

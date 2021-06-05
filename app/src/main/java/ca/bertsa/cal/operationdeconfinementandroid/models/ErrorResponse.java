@@ -1,4 +1,4 @@
-package ca.bertsa.cal.operationdeconfinementandroid;
+package ca.bertsa.cal.operationdeconfinementandroid.models;
 
 import lombok.Data;
 

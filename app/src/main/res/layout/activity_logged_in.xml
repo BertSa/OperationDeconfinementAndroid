@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/loginParent"
     android:layout_width="match_parent"
@@ -9,7 +8,7 @@
     android:backgroundTint="@color/background_primary"
     android:backgroundTintMode="add"
     android:orientation="vertical"
-    tools:context=".Qr">
+    tools:context=".LoggedInActivity">
 
     <ScrollView style="@style/parent">
 
@@ -59,12 +58,12 @@
 
                 <include
                     android:id="@+id/confirmation"
-                    layout="@layout/layout_confirmation" />
+                    layout="@layout/layout_completion" />
 
-<!--                <include-->
-<!--                    android:id="@+id/login"-->
-<!--                    layout="@layout/layout_login"-->
-<!--                    android:visibility="gone" />-->
+                <include
+                    android:id="@+id/qrView"
+                    layout="@layout/layout_qr"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
